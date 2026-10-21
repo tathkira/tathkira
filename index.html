@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="تذكير يُفتح وقت الضعف: آيات وأحاديث وأدعية في حفظ الفرج والعفة والاستغفار.">
+<title>تذكرة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<style>
+/* Layout: one quiet reading column, a single green "reminder" card as the only bold element, sections divided by hairlines */
+:root {
+  --bg: #EDF0EC;
+  --surface: #F7F9F6;
+  --ink: #1C2724;
+  --muted: #56665F;
+  --line: #D3DBD5;
+  --accent: #2B6650;
+  --accent-ink: #F2F7F4;
+  --accent-soft: #DCE8E1;
+  --gold: #85702A;
+  --f-verse: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", "Times New Roman", serif;
+  --f-ui: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, "Geeza Pro", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101614; --surface: #171F1C; --ink: #E3EAE6; --muted: #98A79F; --line: #29342F;
+    --accent: #7CBEA0; --accent-ink: #0E1913; --accent-soft: #1D2B25; --gold: #CDB86C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101614; --surface: #171F1C; --ink: #E3EAE6; --muted: #98A79F; --line: #29342F;
+  --accent: #7CBEA0; --accent-ink: #0E1913; --accent-soft: #1D2B25; --gold: #CDB86C;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-ui);
+  font-size: 16px;
+  line-height: 1.8;
+  direction: rtl;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+}
+.page { max-width: 640px; margin: 0 auto; padding-block: 0 56px; }
+
+/* pinned verse: always on screen */
+.pin-wrap {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 6;
+  background: var(--bg); padding-block: 10px 8px;
+}
+.pinned {
+  background: var(--accent); color: var(--accent-ink);
+  border-radius: 14px; padding: 12px 16px 8px; display: grid; gap: 2px;
+}
+.pinned .pin-txt { font-family: var(--f-verse); font-size: 1.25rem; line-height: 1.85; margin: 0; }
+.pinned .pin-src { font-size: .78rem; opacity: .85; margin: 0; }
+
+header { display: grid; gap: 4px; margin-block: 16px 18px; }
+h1 {
+  font-family: var(--f-verse); font-weight: 700; font-size: 2.3rem;
+  line-height: 1.3; margin: 0; text-wrap: balance;
+}
+.lede { margin: 0; color: var(--muted); max-width: 34em; }
+
+/* rotating reminder, quieter than the pinned verse */
+.reminder {
+  background: var(--surface); color: var(--ink); border: 1px solid var(--line);
+  border-radius: 16px; padding: 18px 18px 16px;
+  display: grid; gap: 10px;
+}
+.reminder .kind {
+  font-size: .78rem; letter-spacing: .02em; color: var(--gold); font-weight: 600;
+}
+.reminder .txt {
+  font-family: var(--f-verse); font-size: 1.45rem; line-height: 2; margin: 0;
+  transition: opacity .25s ease;
+}
+.reminder .src { font-size: .85rem; color: var(--muted); margin: 0; }
+.reminder.fading .txt, .reminder.fading .src { opacity: 0; }
+.reminder button {
+  justify-self: start; font: inherit; font-weight: 600; font-size: .95rem;
+  background: var(--accent); color: var(--accent-ink);
+  border: 0; border-radius: 999px; padding: 8px 18px; cursor: pointer;
+}
+.reminder button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+nav {
+  margin-top: 22px; padding-block: 10px;
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--line);
+}
+nav::-webkit-scrollbar { display: none; }
+nav a {
+  flex: 0 0 auto; text-decoration: none; color: var(--ink);
+  font-size: .9rem; font-weight: 500;
+  padding: 5px 14px; border-radius: 999px; background: var(--accent-soft);
+}
+nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+section { padding-top: 30px; scroll-margin-top: 150px; }
+h2 {
+  font-family: var(--f-verse); font-size: 1.75rem; font-weight: 700;
+  margin: 0 0 4px; line-height: 1.4;
+}
+.sec-note { margin: 0 0 14px; color: var(--muted); font-size: .95rem; }
+h3 {
+  font-size: .82rem; font-weight: 600; color: var(--gold);
+  letter-spacing: .02em; margin: 22px 0 2px;
+}
+
+/* steps */
+ol.steps { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: s; display: grid; gap: 12px; }
+ol.steps li {
+  counter-increment: s; display: grid; grid-template-columns: 2rem 1fr; gap: 10px; align-items: start;
+}
+ol.steps li::before {
+  content: counter(s, arabic-indic);
+  font-family: var(--f-verse); font-weight: 700; font-size: 1.15rem;
+  width: 2rem; height: 2rem; border-radius: 50%;
+  display: grid; place-items: center; line-height: 1;
+  border: 1.5px solid var(--accent); color: var(--accent);
+}
+ol.steps li > div { min-width: 0; }
+ol.steps b { display: block; font-weight: 600; }
+ol.steps span { color: var(--muted); font-size: .95rem; }
+.wave {
+  margin: 18px 0 0; padding: 12px 16px; border-radius: 12px;
+  background: var(--surface); border: 1px solid var(--line); font-size: .95rem;
+}
+
+/* item lists */
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { padding-block: 14px; border-top: 1px solid var(--line); display: grid; gap: 4px; }
+.list li:first-child { border-top: 0; }
+.verse, .dua-q {
+  font-family: var(--f-verse); font-size: 1.4rem; line-height: 2.05; margin: 0;
+}
+.hadith, .dua {
+  font-family: var(--f-verse); font-size: 1.3rem; line-height: 2; margin: 0;
+}
+.src { margin: 0; font-size: .85rem; color: var(--muted); }
+.note { margin: 0; font-size: .92rem; color: var(--ink); }
+.note::before { content: "— "; color: var(--gold); }
+
+footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reminder .txt, .reminder .src { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="page" dir="rtl" lang="ar">
+  <div class="pin-wrap">
+    <div class="pinned" role="note">
+      <p class="pin-txt">﴿إِنَّ الَّذِينَ اتَّقَوْا إِذَا مَسَّهُمْ طَائِفٌ مِّنَ الشَّيْطَانِ تَذَكَّرُوا فَإِذَا هُم مُّبْصِرُونَ﴾</p>
+      <p class="pin-src">الأعراف: ٢٠١</p>
+    </div>
+  </div>
+
+  <header>
+    <h1>تذكرة</h1>
+    <p class="lede">افتحها حين تضعف. اقرأ تذكيراً واحداً، ثم قم من مكانك.</p>
+  </header>
+
+  <div class="reminder" id="reminder" aria-live="polite">
+    <span class="kind" id="r-kind">آية</span>
+    <p class="txt" id="r-txt">﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾</p>
+    <p class="src" id="r-src">العلق: ١٤</p>
+    <button type="button" id="next">ذكّرني بغيرها</button>
+  </div>
+
+  <nav aria-label="أقسام الصفحة">
+    <a href="#now">الآن</a>
+    <a href="#ayat">آيات</a>
+    <a href="#hadith">أحاديث</a>
+    <a href="#dua">أدعية</a>
+    <a href="#tawbah">إذا زللت</a>
+  </nav>
+
+  <section id="now">
+    <h2>افعل هذا الآن</h2>
+    <ol class="steps">
+      <li><div><b>قل: أعوذ بالله من الشيطان الرجيم</b><span>واترك ما في يدك فوراً، ولا تكمل ولو نظرة.</span></div></li>
+      <li><div><b>غيّر مكانك</b><span>قم، اخرج من الغرفة، وأبعد الهاتف عنك.</span></div></li>
+      <li><div><b>توضّأ وصلِّ ركعتين</b><span>الماء يطفئ الحرارة، والسجود يكسر الوسوسة.</span></div></li>
+      <li><div><b>لا تبقَ وحدك</b><span>كلّم أحداً، أو اخرج تمشي، أو اجلس حيث الناس.</span></div></li>
+      <li><div><b>ادعُ</b><span>«اللهم اغفر ذنبي، وطهّر قلبي، وحصّن فرجي».</span></div></li>
+    </ol>
+    <p class="wave">الرغبة موجة ترتفع ثم تهدأ. اصبر دقائق قليلة وستمرّ، ويبقى لك أجر الصبر.</p>
+  </section>
+
+  <section id="ayat">
+    <h2>آيات</h2>
+
+    <h3>الأمر بالحفظ</h3>
+    <ul class="list">
+      <li data-pool="آية">
+        <p class="verse">﴿وَالَّذِينَ هُمْ لِفُرُوجِهِمْ حَافِظُونَ ۝ إِلَّا عَلَىٰ أَزْوَاجِهِمْ أَوْ مَا مَلَكَتْ أَيْمَانُهُمْ فَإِنَّهُمْ غَيْرُ مَلُومِينَ ۝ فَمَنِ ابْتَغَىٰ وَرَاءَ ذَٰلِكَ فَأُولَٰئِكَ هُمُ الْعَادُونَ﴾</p>
+        <p class="src">المؤمنون: ٥–٧</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ وَيَحْفَظُوا فُرُوجَهُمْ ۚ ذَٰلِكَ أَزْكَىٰ لَهُمْ ۗ إِنَّ اللَّهَ خَبِيرٌ بِمَا يَصْنَعُونَ﴾</p>
+        <p class="src">النور: ٣٠</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿وَلَا تَقْرَبُوا الزِّنَىٰ ۖ إِنَّهُ كَانَ فَاحِشَةً وَسَاءَ سَبِيلًا﴾</p>
+        <p class="src">الإسراء: ٣٢</p>
+      </li>
+    </ul>
+
+    <h3>الله يراك</h3>
+    <ul class="list">
+      <li data-pool="آية">
+        <p class="verse">﴿أَلَمْ يَعْلَم بِأَنَّ اللَّهَ يَرَىٰ﴾</p>
+        <p class="src">العلق: ١٤</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿يَعْلَمُ خَائِنَةَ الْأَعْيُنِ وَمَا تُخْفِي الصُّدُورُ﴾</p>
+        <p class="src">غافر: ١٩</p>
+      </li>
+    </ul>
+
+    <h3>عند الوسوسة</h3>
+    <ul class="list">
+      <li data-pool="آية">
+        <p class="verse">﴿وَإِمَّا يَنزَغَنَّكَ مِنَ الشَّيْطَانِ نَزْغٌ فَاسْتَعِذْ بِاللَّهِ ۚ إِنَّهُ سَمِيعٌ عَلِيمٌ ۝ إِنَّ الَّذِينَ اتَّقَوْا إِذَا مَسَّهُمْ طَائِفٌ مِّنَ الشَّيْطَانِ تَذَكَّرُوا فَإِذَا هُم مُّبْصِرُونَ﴾</p>
+        <p class="src">الأعراف: ٢٠٠–٢٠١</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿قَالَ مَعَاذَ اللَّهِ ۖ إِنَّهُ رَبِّي أَحْسَنَ مَثْوَايَ ۖ إِنَّهُ لَا يُفْلِحُ الظَّالِمُونَ﴾</p>
+        <p class="src">يوسف: ٢٣</p>
+        <p class="note">جواب يوسف عليه السلام حين دُعي إلى الحرام وهو شابّ غريب وحيد.</p>
+      </li>
+    </ul>
+
+    <h3>الوعد لمن صبر وتعفّف</h3>
+    <ul class="list">
+      <li data-pool="آية">
+        <p class="verse">﴿وَلْيَسْتَعْفِفِ الَّذِينَ لَا يَجِدُونَ نِكَاحًا حَتَّىٰ يُغْنِيَهُمُ اللَّهُ مِن فَضْلِهِ﴾</p>
+        <p class="src">النور: ٣٣</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿...إِن يَكُونُوا فُقَرَاءَ يُغْنِهِمُ اللَّهُ مِن فَضْلِهِ ۗ وَاللَّهُ وَاسِعٌ عَلِيمٌ﴾</p>
+        <p class="src">النور: ٣٢</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا ۝ وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ﴾</p>
+        <p class="src">الطلاق: ٢–٣</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿إِنَّهُ مَن يَتَّقِ وَيَصْبِرْ فَإِنَّ اللَّهَ لَا يُضِيعُ أَجْرَ الْمُحْسِنِينَ﴾</p>
+        <p class="src">يوسف: ٩٠</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿وَالَّذِينَ جَاهَدُوا فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا ۚ وَإِنَّ اللَّهَ لَمَعَ الْمُحْسِنِينَ﴾</p>
+        <p class="src">العنكبوت: ٦٩</p>
+      </li>
+    </ul>
+
+    <h3>الجزاء</h3>
+    <ul class="list">
+      <li data-pool="آية">
+        <p class="verse">﴿أُولَٰئِكَ هُمُ الْوَارِثُونَ ۝ الَّذِينَ يَرِثُونَ الْفِرْدَوْسَ هُمْ فِيهَا خَالِدُونَ﴾</p>
+        <p class="src">المؤمنون: ١٠–١١</p>
+        <p class="note">وهي في الحافظين لفروجهم ومن معهم من المؤمنين.</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿...وَالْحَافِظِينَ فُرُوجَهُمْ وَالْحَافِظَاتِ وَالذَّاكِرِينَ اللَّهَ كَثِيرًا وَالذَّاكِرَاتِ أَعَدَّ اللَّهُ لَهُم مَّغْفِرَةً وَأَجْرًا عَظِيمًا﴾</p>
+        <p class="src">الأحزاب: ٣٥</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿وَأَمَّا مَنْ خَافَ مَقَامَ رَبِّهِ وَنَهَى النَّفْسَ عَنِ الْهَوَىٰ ۝ فَإِنَّ الْجَنَّةَ هِيَ الْمَأْوَىٰ﴾</p>
+        <p class="src">النازعات: ٤٠–٤١</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿وَلِمَنْ خَافَ مَقَامَ رَبِّهِ جَنَّتَانِ﴾</p>
+        <p class="src">الرحمن: ٤٦</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="hadith">
+    <h2>أحاديث</h2>
+    <ul class="list">
+      <li data-pool="حديث">
+        <p class="hadith">«ثلاثةٌ حقٌّ على الله عونُهم: المجاهدُ في سبيل الله، والمكاتَبُ الذي يريد الأداء، والناكحُ الذي يريد العفاف»</p>
+        <p class="src">رواه الترمذي وحسّنه، والنسائي وابن ماجه</p>
+        <p class="note">إن كنت تسعى للزواج تريد العفاف، فعونك حقٌّ على الله.</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«يا معشرَ الشباب، من استطاع منكم الباءةَ فليتزوّج، فإنه أغضُّ للبصر وأحصنُ للفرج، ومن لم يستطع فعليه بالصوم فإنه له وِجاء»</p>
+        <p class="src">متفق عليه</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«من يضمنْ لي ما بين لَحْيَيْه وما بين رجليه أضمنْ له الجنة»</p>
+        <p class="src">رواه البخاري</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«سبعةٌ يُظلّهم الله في ظلّه يوم لا ظلَّ إلا ظلُّه... ورجلٌ طلبته امرأةٌ ذاتُ منصبٍ وجمال، فقال: إني أخاف الله»</p>
+        <p class="src">متفق عليه</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«إنك لن تدعَ شيئاً لله عزّ وجلّ إلا بدّلك الله به ما هو خيرٌ لك منه»</p>
+        <p class="src">رواه أحمد، وصحّحه الألباني</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«حُفّت الجنةُ بالمكاره، وحُفّت النارُ بالشهوات»</p>
+        <p class="src">رواه مسلم</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«يا عليّ، لا تُتبعِ النظرةَ النظرةَ، فإنّ لك الأولى وليست لك الآخرة»</p>
+        <p class="src">رواه أبو داود والترمذي</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«احفظِ الله يحفظْك، احفظِ الله تجدْه تُجاهك»</p>
+        <p class="src">رواه الترمذي وقال: حسن صحيح</p>
+      </li>
+      <li>
+        <p class="hadith">جاء شابٌّ يستأذن النبيَّ ﷺ في الزنا، فحاوره بلطف، ثم وضع يده عليه وقال: «اللهم اغفر ذنبَه، وطهّر قلبَه، وحصّن فرجَه»، فلم يكن الفتى بعد ذلك يلتفت إلى شيء.</p>
+        <p class="src">رواه أحمد بإسناد صحيح</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="dua">
+    <h2>أدعية</h2>
+    <ul class="list">
+      <li>
+        <p class="dua">«اللهمّ إني أسألك الهدى، والتّقى، والعفاف، والغنى»</p>
+        <p class="src">رواه مسلم</p>
+      </li>
+      <li>
+        <p class="dua">«اللهمّ اغفر ذنبي، وطهّر قلبي، وحصّن فرجي»</p>
+        <p class="src">من دعاء النبي ﷺ للشاب، رواه أحمد</p>
+      </li>
+      <li>
+        <p class="dua">«اللهمّ إني أعوذ بك من شرّ سمعي، ومن شرّ بصري، ومن شرّ لساني، ومن شرّ قلبي، ومن شرّ مَنِيِّي»</p>
+        <p class="src">رواه أبو داود والترمذي والنسائي</p>
+      </li>
+      <li>
+        <p class="dua-q">﴿وَإِلَّا تَصْرِفْ عَنِّي كَيْدَهُنَّ أَصْبُ إِلَيْهِنَّ وَأَكُن مِّنَ الْجَاهِلِينَ﴾</p>
+        <p class="src">يوسف: ٣٣</p>
+        <p class="note">وبعدها مباشرة: ﴿فَاسْتَجَابَ لَهُ رَبُّهُ فَصَرَفَ عَنْهُ كَيْدَهُنَّ﴾</p>
+      </li>
+      <li>
+        <p class="dua">«يا مقلّبَ القلوب، ثبّت قلبي على دينك»</p>
+        <p class="src">رواه الترمذي</p>
+      </li>
+      <li>
+        <p class="dua">«اللهمّ ألهمني رُشدي، وأعذني من شرّ نفسي»</p>
+        <p class="src">رواه الترمذي</p>
+      </li>
+      <li>
+        <p class="dua-q">﴿رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ﴾</p>
+        <p class="src">القصص: ٢٤</p>
+        <p class="note">دعا بها موسى عليه السلام وهو غريب، فرزقه الله الزوجة والمأوى.</p>
+      </li>
+      <li>
+        <p class="dua-q">﴿رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا﴾</p>
+        <p class="src">الفرقان: ٧٤</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="tawbah">
+    <h2>إذا زللت</h2>
+    <p class="sec-note">لا تجعل الزلّة سبباً لترك المجاهدة. قم الآن، توضّأ، صلِّ ركعتين، واستغفر.</p>
+    <ul class="list">
+      <li data-pool="آية">
+        <p class="verse">﴿قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ ۚ إِنَّ اللَّهَ يَغْفِرُ الذُّنُوبَ جَمِيعًا ۚ إِنَّهُ هُوَ الْغَفُورُ الرَّحِيمُ﴾</p>
+        <p class="src">الزمر: ٥٣</p>
+      </li>
+      <li data-pool="آية">
+        <p class="verse">﴿وَالَّذِينَ إِذَا فَعَلُوا فَاحِشَةً أَوْ ظَلَمُوا أَنفُسَهُمْ ذَكَرُوا اللَّهَ فَاسْتَغْفَرُوا لِذُنُوبِهِمْ وَمَن يَغْفِرُ الذُّنُوبَ إِلَّا اللَّهُ وَلَمْ يُصِرُّوا عَلَىٰ مَا فَعَلُوا وَهُمْ يَعْلَمُونَ﴾</p>
+        <p class="src">آل عمران: ١٣٥</p>
+      </li>
+      <li>
+        <p class="verse">﴿إِنَّ الْحَسَنَاتِ يُذْهِبْنَ السَّيِّئَاتِ﴾</p>
+        <p class="src">هود: ١١٤</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«ما من رجلٍ يُذنب ذنباً، ثم يقوم فيتطهّر، ثم يصلّي، ثم يستغفر الله، إلا غفر الله له»</p>
+        <p class="src">رواه أبو داود والترمذي</p>
+      </li>
+      <li data-pool="حديث">
+        <p class="hadith">«كلُّ ابنِ آدم خطّاء، وخيرُ الخطّائين التوّابون»</p>
+        <p class="src">رواه الترمذي وابن ماجه</p>
+      </li>
+      <li>
+        <p class="dua">سيد الاستغفار: «اللهمّ أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت، أعوذ بك من شرّ ما صنعت، أبوء لك بنعمتك عليّ، وأبوء لك بذنبي، فاغفر لي، فإنه لا يغفر الذنوب إلا أنت»</p>
+        <p class="src">رواه البخاري</p>
+      </li>
+      <li>
+        <p class="dua-q">﴿رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ﴾</p>
+        <p class="src">الأعراف: ٢٣</p>
+      </li>
+    </ul>
+  </section>
+
+  <footer>الآيات برواية حفص عن عاصم، والأحاديث مع تخريج مختصر.</footer>
+</div>
+
+<script>
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('[data-pool]')).map(function (li) {
+    var t = li.querySelector('.verse, .hadith, .dua, .dua-q');
+    var s = li.querySelector('.src');
+    return { kind: li.getAttribute('data-pool'), txt: t ? t.textContent : '', src: s ? s.textContent : '' };
+  });
+  var box = document.getElementById('reminder');
+  var kind = document.getElementById('r-kind');
+  var txt = document.getElementById('r-txt');
+  var src = document.getElementById('r-src');
+  var last = -1;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function show() {
+    if (!items.length) return;
+    var i;
+    do { i = Math.floor(Math.random() * items.length); } while (items.length > 1 && i === last);
+    last = i;
+    var it = items[i];
+    function swap() {
+      kind.textContent = it.kind;
+      txt.textContent = it.txt;
+      src.textContent = it.src;
+      box.classList.remove('fading');
+    }
+    if (reduce) { swap(); return; }
+    box.classList.add('fading');
+    setTimeout(swap, 220);
+  }
+  document.getElementById('next').addEventListener('click', show);
+})();
+</script>
+</body>
+</html>
